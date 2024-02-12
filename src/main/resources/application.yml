@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+    security:
+      jwt:
+        secret-key: ${JWT_SECRET}
+        expiration: ${JWT_EXPIRATION}
+    host: http://localhost:8080
+  profiles:
+    active: dev
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    default-encoding: UTF-8
+    properties:
+      mail:
+        mime:
+          charset: UTF
+        smtp:
+          writetimeout: 10000
+          connectiontimeout: 10000
+          timeout: 10000
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    verify:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
