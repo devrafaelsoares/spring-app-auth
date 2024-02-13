@@ -1,6 +1,7 @@
 package br.devrafaelsoares.SpringBootAuth.services.impl;
 
 import br.devrafaelsoares.SpringBootAuth.domain.user.User;
+import br.devrafaelsoares.SpringBootAuth.exceptions.user.UserNotFoundException;
 import br.devrafaelsoares.SpringBootAuth.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +16,7 @@ import static org.mockito.Mockito.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
+import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @DisplayName("UserService Implementation Test's")
@@ -55,6 +57,15 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should throw a UserNotFoundException if the username does not match any user")
+    void UserServiceImpl_findUserByUsername_should_throw_a_UserNotFoundException_if_the_username_does_not_match_any_user() {
+
+        when(userRepository.findByUsername(any())).thenThrow(UserNotFoundException.class);
+
+        assertThrows(UserNotFoundException.class, () -> userRepository.findByUsername("Usuário inexistente"));
+    }
+
+    @Test
     @DisplayName("Should return the user based on the id entered")
     void UserServiceImpl_findUserById_should_return_the_user_based_on_the_id_entered() {
 
@@ -67,6 +78,16 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should throw a UserNotFoundException if the id does not match any user")
+    void UserServiceImpl_findUserById_should_throw_a_UserNotFoundException_if_the_id_does_not_match_any_user() {
+
+        when(userRepository.findById(any())).thenThrow(UserNotFoundException.class);
+
+        assertThrows(UserNotFoundException.class, () -> userRepository.findById(UUID.randomUUID()));
+    }
+
+
+    @Test
     @DisplayName("Should return true if the user exists with the given username")
     void UserServiceImpl_isExistsUserByUsername_should_return_true_if_the_user_exists_with_the_given_username() {
 
@@ -74,7 +95,7 @@ class UserServiceImplTest {
 
         boolean isExistsUser = userService.isExistsUserByUsername(userTest.getUsername());
 
-        assertTrue(isExistsUser);;
+        assertTrue(isExistsUser);
     }
 
     @Test
@@ -85,7 +106,7 @@ class UserServiceImplTest {
 
         boolean isExistsUser = userService.isExistsUserByEmail(userTest.getEmail());
 
-        assertTrue(isExistsUser);;
+        assertTrue(isExistsUser);
 
     }
 
