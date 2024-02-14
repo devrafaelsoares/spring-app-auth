@@ -66,7 +66,7 @@ class RoleServiceImplTest {
 
     @Test
     @DisplayName("Should return the role based on the name entered")
-    void ROleServiceImpl_findRoleByName_should_return_the_role_based_on_the_name_entered() {
+    void RoleServiceImpl_findRoleByName_should_return_the_role_based_on_the_name_entered() {
 
         when(roleRepository.findByName(ROLE_THAT_EXIST)).thenReturn(Optional.ofNullable(roleTest));
 
