@@ -66,9 +66,16 @@ class UserServiceImplTest {
     @DisplayName("Should throw a UserNotFoundException if the username does not match any user")
     void UserServiceImpl_findUserByUsername_should_throw_a_UserNotFoundException_if_the_username_does_not_match_any_user() {
 
-        when(userRepository.findByUsername(any())).thenThrow(UserNotFoundException.class);
+        when(userRepository.findByUsername(USER_NAME_THAT_NOT_EXIST)).thenReturn(Optional.empty());
 
-        assertThrows(UserNotFoundException.class, () -> userRepository.findByUsername("Usuário inexistente"));
+        UserNotFoundException exception = assertThrows(
+                UserNotFoundException.class,
+                () -> userService.findUserByUsername(USER_NAME_THAT_NOT_EXIST)
+        );
+
+        assertEquals("Usuário não encontrado", exception.getMessage());
+        assertEquals(UserNotFoundException.class, exception.getClass());
+
     }
 
     @Test
@@ -87,9 +94,13 @@ class UserServiceImplTest {
     @DisplayName("Should throw a UserNotFoundException if the id does not match any user")
     void UserServiceImpl_findUserById_should_throw_a_UserNotFoundException_if_the_id_does_not_match_any_user() {
 
-        when(userRepository.findById(any())).thenThrow(UserNotFoundException.class);
+        when(userRepository.findById(UUID.randomUUID())).thenReturn(Optional.empty());
 
-        assertThrows(UserNotFoundException.class, () -> userRepository.findById(UUID.randomUUID()));
+        UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> userService.findUserById(UUID.randomUUID()));
+
+        assertEquals("Usuário não encontrado", exception.getMessage());
+        assertEquals(UserNotFoundException.class, exception.getClass());
+
     }
 
 
