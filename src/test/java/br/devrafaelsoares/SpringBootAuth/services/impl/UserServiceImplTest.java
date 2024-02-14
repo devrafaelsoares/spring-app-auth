@@ -82,7 +82,7 @@ class UserServiceImplTest {
     @DisplayName("Should return the user based on the id entered")
     void UserServiceImpl_findUserById_should_return_the_user_based_on_the_id_entered() {
 
-        when(userRepository.findById(any())).thenReturn(Optional.ofNullable(userTest));
+        when(userRepository.findById(userTest.getId())).thenReturn(Optional.ofNullable(userTest));
 
         User userFound = userService.findUserById(userTest.getId());
 
