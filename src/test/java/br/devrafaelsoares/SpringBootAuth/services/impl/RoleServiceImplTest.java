@@ -82,7 +82,13 @@ class RoleServiceImplTest {
 
         when(roleRepository.findByName(ROLE_THAT_NOT_EXIST)).thenReturn(Optional.empty());
 
-        assertThrows(RoleNotFoundException.class, () -> roleService.findRoleByName(roleThatNotExist));
+        RoleNotFoundException exception = assertThrows(
+                RoleNotFoundException.class,
+                () -> roleService.findRoleByName(ROLE_THAT_NOT_EXIST)
+        );
+
+        assertEquals("Permissão informada não existe", exception.getMessage());
+        assertEquals(RoleNotFoundException.class, exception.getClass());
 
     }
 
