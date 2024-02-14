@@ -28,6 +28,12 @@ class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
+    private static final String USER_NAME_THAT_EXIST = "Toby";
+
+    private static final String USER_NAME_THAT_NOT_EXIST = "David";
+
+    private static final String USER_EMAIL_THAT_EXIST = "toby@email.com";
+
     private User userTest;
 
     @BeforeEach
@@ -48,9 +54,9 @@ class UserServiceImplTest {
     @DisplayName("Should return the user based on the username entered")
     void UserServiceImpl_findUserByUsername_should_return_the_user_based_on_the_username_entered() {
 
-        when(userRepository.findByUsername(any())).thenReturn(Optional.ofNullable(userTest));
+        when(userRepository.findByUsername(USER_NAME_THAT_EXIST)).thenReturn(Optional.ofNullable(userTest));
 
-        User userFound = userService.findUserByUsername(userTest.getUsername());
+        User userFound = userService.findUserByUsername(USER_NAME_THAT_EXIST);
 
         assertEquals(userTest.getUsername(), userFound.getUsername());
         assertNotNull(userFound);
@@ -91,9 +97,9 @@ class UserServiceImplTest {
     @DisplayName("Should return true if the user exists with the given username")
     void UserServiceImpl_isExistsUserByUsername_should_return_true_if_the_user_exists_with_the_given_username() {
 
-        when(userRepository.existsByUsername(any())).thenReturn(true);
+        when(userRepository.existsByUsername(USER_NAME_THAT_EXIST)).thenReturn(true);
 
-        boolean isExistsUser = userService.isExistsUserByUsername(userTest.getUsername());
+        boolean isExistsUser = userService.isExistsUserByUsername(USER_NAME_THAT_EXIST);
 
         assertTrue(isExistsUser);
     }
@@ -102,9 +108,9 @@ class UserServiceImplTest {
     @DisplayName("Should return true if the user exists with the given email")
     void UserServiceImpl_isExistsUserByEmail_should_return_true_if_the_user_exists_with_the_given_email() {
 
-        when(userRepository.existsByEmail(any())).thenReturn(true);
+        when(userRepository.existsByEmail(USER_EMAIL_THAT_EXIST)).thenReturn(true);
 
-        boolean isExistsUser = userService.isExistsUserByEmail(userTest.getEmail());
+        boolean isExistsUser = userService.isExistsUserByEmail(USER_EMAIL_THAT_EXIST);
 
         assertTrue(isExistsUser);
 
@@ -127,9 +133,9 @@ class UserServiceImplTest {
     @DisplayName("Should return a user from a UserDetails instance from the given username")
     void UserService_loadUserByUsername_should_return_a_user_from_a_UserDetails_instance_from_the_given_username() {
 
-        when(userRepository.findByUsername(any())).thenReturn(Optional.ofNullable(userTest));
+        when(userRepository.findByUsername(USER_NAME_THAT_EXIST)).thenReturn(Optional.ofNullable(userTest));
 
-        UserDetails userFound = userService.loadUserByUsername(userTest.getUsername());
+        UserDetails userFound = userService.loadUserByUsername(USER_NAME_THAT_EXIST);
 
         assertInstanceOf(UserDetails.class, userFound);
     }
