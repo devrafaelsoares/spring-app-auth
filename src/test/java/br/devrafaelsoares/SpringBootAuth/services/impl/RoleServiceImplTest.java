@@ -26,10 +26,9 @@ class RoleServiceImplTest {
 
     private Role roleTest;
 
-    private final String roleThatExist = "ADMIN";
+    private static final String ROLE_THAT_EXIST = "ADMIN";
 
-    private final String roleThatNotExist = "OWNER";
-
+    private static final String ROLE_THAT_NOT_EXIST = "OWNER";
 
     @BeforeEach
     void setUp() {
@@ -45,9 +44,9 @@ class RoleServiceImplTest {
     @DisplayName("Should return true if the role exist with the given name")
     void RoleServiceImpl_isExistsRoleByName_should_return_true_if_the_role_exists_with_then_given_name_role() {
 
-        when(roleRepository.existsByName(roleTest.getName())).thenReturn(true);
+        when(roleRepository.existsByName(ROLE_THAT_EXIST)).thenReturn(true);
 
-        boolean isExistsRole = roleService.isExistsRoleByName(roleThatExist);
+        boolean isExistsRole = roleService.isExistsRoleByName(ROLE_THAT_EXIST);
 
         assertTrue(isExistsRole);
 
@@ -57,9 +56,9 @@ class RoleServiceImplTest {
     @DisplayName("Should return false if the role does not exist with the given name")
     void RoleServiceImpl_isExistsRoleByName_should_return_false_if_the_role_does_not_exist_with_the_given_name() {
 
-        when(roleRepository.existsByName(roleTest.getName())).thenReturn(true);
+        when(roleRepository.existsByName(ROLE_THAT_NOT_EXIST)).thenReturn(false);
 
-        boolean isExistsRole = roleService.isExistsRoleByName(roleThatNotExist);
+        boolean isExistsRole = roleService.isExistsRoleByName(ROLE_THAT_NOT_EXIST);
 
         assertFalse(isExistsRole);
 
@@ -69,9 +68,9 @@ class RoleServiceImplTest {
     @DisplayName("Should return the role based on the name entered")
     void ROleServiceImpl_findRoleByName_should_return_the_role_based_on_the_name_entered() {
 
-        when(roleRepository.findByName(roleTest.getName())).thenReturn(Optional.ofNullable(roleTest));
+        when(roleRepository.findByName(ROLE_THAT_EXIST)).thenReturn(Optional.ofNullable(roleTest));
 
-        Role roleFound = roleService.findRoleByName(roleThatExist);
+        Role roleFound = roleService.findRoleByName(ROLE_THAT_EXIST);
 
         assertNotNull(roleFound);
 
@@ -81,7 +80,7 @@ class RoleServiceImplTest {
     @DisplayName("Should throw a RoleNotFoundException if the name does not match any role")
     void RoleServiceImpl_findRoleByName_should_throw_a_RoleNotFoundException_if_the_name_does_not_match_any_role() {
 
-        when(roleRepository.findByName(roleTest.getName())).thenReturn(Optional.ofNullable(roleTest));
+        when(roleRepository.findByName(ROLE_THAT_NOT_EXIST)).thenReturn(Optional.empty());
 
         assertThrows(RoleNotFoundException.class, () -> roleService.findRoleByName(roleThatNotExist));
 
