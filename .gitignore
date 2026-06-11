@@ -38,3 +38,9 @@ out/
 
 ### RSA Keys (production) ###
 # src/main/resources/keys/private.pem
+
+### Environment ###
+.env
+
+### Gemini ###
+.gemini/

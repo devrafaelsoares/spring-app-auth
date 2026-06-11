@@ -1,0 +1,13 @@
+# Ignora tudo que não precisa ir para o build context
+.git
+.gradle
+build
+.idea
+*.iml
+*.ipr
+*.iws
+out
+.vscode
+.env
+README.md
+LICENSE
