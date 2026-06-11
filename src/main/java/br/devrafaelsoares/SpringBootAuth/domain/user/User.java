@@ -7,7 +7,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "users")
@@ -49,10 +51,16 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-            return roles
-                    .stream()
-                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase()))
-                    .toList();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        roles.forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase()));
+            role.getPrivileges().forEach(privilege ->
+                    authorities.add(new SimpleGrantedAuthority(privilege.getName().toUpperCase()))
+            );
+        });
+
+        return authorities;
     }
 
     @Override

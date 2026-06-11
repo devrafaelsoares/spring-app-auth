@@ -1,11 +1,6 @@
 spring:
   application:
     name: ${APPLICATION_NAME}
-    security:
-      jwt:
-        secret-key: ${JWT_SECRET}
-        expiration: ${JWT_EXPIRATION}
-    host: http://localhost:8080
   profiles:
     active: dev
   mail:
@@ -30,3 +25,10 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+
+app:
+  host: http://localhost:8080
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET}
+      expiration: ${JWT_EXPIRATION}

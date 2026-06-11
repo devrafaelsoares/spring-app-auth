@@ -37,6 +37,6 @@ public class Role implements Serializable {
                     referencedColumnName = "id"
             )
     )
-    public Collection<Privilege> privileges;
+    private Collection<Privilege> privileges;
 
 }

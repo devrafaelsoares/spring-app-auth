@@ -1,18 +1,33 @@
 spring:
+  application:
+    name: SpringBootAuthTest
   datasource:
     url: jdbc:h2:mem:h2-database
-  driverClassName: org.h2.Driver
-  username: sa
-  password:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-        ddl-auto: update
-        jdbc:
-          lob:
-            non_contextual_creation: true
+    hibernate:
+      ddl-auto: create-drop
+      jdbc:
+        lob:
+          non_contextual_creation: true
+  mail:
+    host: localhost
+    port: 587
+    username: test@test.com
+    password: test
   flyway:
     enabled: false
+
+app:
+  host: http://localhost:8080
+  security:
+    jwt:
+      secret-key: test-secret-key-for-unit-tests-only
+      expiration: 86400000

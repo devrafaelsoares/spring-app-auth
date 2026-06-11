@@ -8,8 +8,6 @@ import br.devrafaelsoares.SpringBootAuth.services.UserConfirmationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.UUID;
 
 @Service
@@ -34,8 +32,6 @@ public class UserConfirmationServiceImpl implements UserConfirmationService {
         return confirmationUserRepository.save(
                 UserConfirmation
                         .builder()
-                            .id(UUID.randomUUID())
-                            .createdDate(LocalDateTime.now().atZone(ZoneId.systemDefault()).toLocalDateTime())
                             .token(UUID.randomUUID())
                             .user(user)
                         .build());
