@@ -22,11 +22,14 @@ services:
       - spring-auth-network
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: eclipse-temurin:21-jdk-alpine
     container_name: spring-auth-app
     restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - gradle_cache:/root/.gradle
+    command: sh -c "./gradlew classes --continuous --no-daemon & ./gradlew bootRun --no-daemon"
     depends_on:
       postgres:
         condition: service_healthy
@@ -49,6 +52,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  gradle_cache:
     driver: local
 
 networks:

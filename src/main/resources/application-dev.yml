@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DATABASE_HOST}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: ${DATABASE_HOST:jdbc:postgresql://localhost:5432/spring_auth_db}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
   jpa:
     properties:
       hibernate:

@@ -69,6 +69,30 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
     }
 
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleMessageNotReadable(
+            org.springframework.http.converter.HttpMessageNotReadableException ex, HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.BAD_REQUEST, "Corpo da requisição ausente ou mal formatado", request);
+    }
+
+    @ExceptionHandler({
+            org.springframework.security.authentication.BadCredentialsException.class,
+            org.springframework.security.authentication.InternalAuthenticationServiceException.class
+    })
+    public ResponseEntity<ErrorResponse> handleBadCredentials(
+            Exception ex, HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.UNAUTHORIZED, "Credenciais inválidas", request);
+    }
+
+    @ExceptionHandler(org.springframework.security.authentication.DisabledException.class)
+    public ResponseEntity<ErrorResponse> handleDisabledAccount(
+            org.springframework.security.authentication.DisabledException ex, HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.FORBIDDEN, "Conta não ativada. Verifique seu e-mail.", request);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(
             Exception ex, HttpServletRequest request
