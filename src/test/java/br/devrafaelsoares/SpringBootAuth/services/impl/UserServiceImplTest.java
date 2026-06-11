@@ -3,6 +3,7 @@ package br.devrafaelsoares.SpringBootAuth.services.impl;
 import br.devrafaelsoares.SpringBootAuth.domain.user.User;
 import br.devrafaelsoares.SpringBootAuth.exceptions.user.UserNotFoundException;
 import br.devrafaelsoares.SpringBootAuth.repositories.UserRepository;
+import br.devrafaelsoares.SpringBootAuth.services.RoleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,6 +26,12 @@ class UserServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private RoleService roleService;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private UserServiceImpl userService;

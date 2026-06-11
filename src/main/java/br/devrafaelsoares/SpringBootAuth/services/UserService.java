@@ -1,6 +1,8 @@
 package br.devrafaelsoares.SpringBootAuth.services;
 
 import br.devrafaelsoares.SpringBootAuth.domain.user.*;
+import br.devrafaelsoares.SpringBootAuth.dtos.RegisterRequest;
+import br.devrafaelsoares.SpringBootAuth.exceptions.user.UserExistsException;
 import br.devrafaelsoares.SpringBootAuth.exceptions.user.UserNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -16,5 +18,7 @@ public interface UserService extends UserDetailsService {
     boolean isExistsUserByEmail(String email);
 
     void updateIsEnableUser(User user, boolean status);
+
+    User registerUser(RegisterRequest request) throws UserExistsException;
 
 }
