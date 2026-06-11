@@ -29,5 +29,13 @@ app:
   host: http://localhost:8080
   security:
     jwt:
-      secret-key: test-secret-key-for-unit-tests-only
+      private-key: classpath:keys/private.pem
+      public-key: classpath:keys/public.pem
       expiration: 86400000
+    cookie:
+      name: access_token
+      max-age: 86400
+      secure: false
+      http-only: true
+      same-site: Lax
+      path: /

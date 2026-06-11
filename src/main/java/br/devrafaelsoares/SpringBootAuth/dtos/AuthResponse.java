@@ -10,12 +10,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class AuthResponse {
 
-    @JsonProperty("access_token")
-    private final String accessToken;
+    private final String message;
 
-    @JsonProperty("token_type")
-    @Builder.Default
-    private final String tokenType = "Bearer";
+    private final UserResponse user;
 
     @JsonProperty("expires_in")
     private final long expiresIn;
