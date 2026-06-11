@@ -692,9 +692,3 @@ Distribuído sob a licença **MIT**. Veja [LICENSE](LICENSE) para mais informaç
     </td>
   </tr>
 </table>
-
----
-
-<p align="center">
-  Feito com ❤️ por <a href="https://github.com/devrafaelsoares">Rafael Soares</a>
-</p>
